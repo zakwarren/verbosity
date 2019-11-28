@@ -3,18 +3,19 @@ const cheerio = require('cheerio');
 
 const mainUrl = 'http://dominicwarren.com/';
 const urlSuffix = '.html';
+const pageBody = '#wrapper';
 
 const siteText = [];
 const siteLinks = [];
 
-const scrapePage= (html) => {
-    const $ = cheerio.load(html);
+const scrapeText = $ => {
+    return $(pageBody)
+        .text()
+        .replace(/\s\s+/g, ' ')
+        .replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
+};
 
-    const pageText = $('#wrapper')
-                    .text()
-                    .replace(/\s\s+/g, ' ')
-                    .replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
-    
+const scrapeLinks = $ => {
     $('a')
         .each((i, element) => {
             let link = $(element).attr('href');
@@ -30,8 +31,19 @@ const scrapePage= (html) => {
                 }
             }
         });
+};
 
-    return pageText;
+const scrapePage = html => {
+    const $ = cheerio.load(html);
+    scrapeLinks($);
+    return scrapeText($);
+};
+
+const extractWords = text => {
+    const txtArr = text.split(' ');
+    txtArr.forEach(word => {
+        siteText.push(word);
+    });
 };
 
 rp({ url: mainUrl })
@@ -39,10 +51,10 @@ rp({ url: mainUrl })
         return scrapePage(html);
     })
     .then(pageText => {
-        const txtArr = pageText.split(' ');
-        txtArr.forEach(word => {
-            siteText.push(word);
-        });
-        console.log(siteText);
+        extractWords(pageText);
+        return;
+    })
+    .then(() => {
+        console.log('Words found: ' + siteText.length);
     })
     .catch(err => console.log(err));
