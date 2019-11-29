@@ -7,7 +7,17 @@ class Scraper {
         this.urlSuffix = urlSuffix;
         this.pageBody = pageBody;
         this.siteText = [];
-        this.siteLinks = [];
+        this.siteLinks = [mainUrl, this.deviseErrorPage(mainUrl)];
+        this.linksToScrape = [mainUrl, this.deviseErrorPage(mainUrl)];
+    }
+
+    deviseErrorPage(mainUrl) {
+        const err = '404.html';
+        if (mainUrl[mainUrl.length -1] !== '/') {
+            return mainUrl + '/' + err;
+        } else {
+            return mainUrl + err;
+        }
     }
 
     extractText($) {
@@ -21,15 +31,26 @@ class Scraper {
         $('a')
             .each((i, element) => {
                 let link = $(element).attr('href');
-                if (!link.includes('http') || link.includes(this.mainUrl)) {
-                    if (!link.includes(this.urlSuffix)) {
-                        link += this.urlSuffix;
-                    }
-                    if (link.charAt(0) === '/') {
-                        link = link.substr(1, link.length);
-                    }
-                    if (!this.siteLinks.includes(link)) {
-                        this.siteLinks.push(link);
+                if (link) {
+                    if (!link.includes('http') || (
+                            link.includes(this.mainUrl)
+                            && link !== this.mainUrl
+                    )) {
+                        if (!link.includes(this.urlSuffix)) {
+                            link += this.urlSuffix;
+                        }
+                        if (link.charAt(0) === '/' && link[link.length -1] !== '/') {
+                            link = link.substr(1, link.length);
+                        }
+
+                        if (!link.includes(this.mainUrl)) {
+                            link = this.mainUrl + link;
+                        }
+
+                        if (!this.siteLinks.includes(link)) {
+                            this.siteLinks.push(link);
+                            this.linksToScrape.push(link);
+                        }
                     }
                 }
             });
@@ -43,7 +64,8 @@ class Scraper {
     };
 
     scrapeSite() {
-        rp({ url: mainUrl })
+        let url = this.linksToScrape.pop();
+        rp({ url: url })
             .then(html => {
                 const $ = cheerio.load(html);
                 this.extractLinks($);
@@ -54,7 +76,12 @@ class Scraper {
                 return;
             })
             .then(() => {
-                console.log('Words found: ' + this.siteText.length);
+                if (this.linksToScrape.length > 0) {
+                    console.log('Scraping: ' + url);
+                    this.scrapeSite();
+                } else {
+                    console.log('Words found: ' + this.siteText.length);
+                }
             })
             .catch(err => console.log(err));
         };
