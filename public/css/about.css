@@ -1,0 +1,15 @@
+.about {
+    width: 60%;
+}
+
+@media (max-width: 1000px) {
+    .about {
+        width: 80%;
+    }
+}
+
+@media (max-width: 800px) {
+    .about {
+        width: 100%;
+    }
+}

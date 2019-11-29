@@ -1,7 +1,7 @@
 {
-  "name": "blogscraper",
+  "name": "Verbosity",
   "version": "1.0.0",
-  "description": "Find the most commonly used words in your blog",
+  "description": "The Website Word Analyzer",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

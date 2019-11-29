@@ -1,5 +1,6 @@
 const Scraper = require('../tools/scraper');
 const WordAnalyzer = require('../tools/word-analyzer');
+const wordData = require('../data/words');
 
 
 exports.getHome = (req, res, next) => {
@@ -8,6 +9,17 @@ exports.getHome = (req, res, next) => {
         {
             pageTitle: 'Verbosity',
             path: '/'
+        }
+    );
+};
+
+exports.getAbout = (req, res, next) => {
+    res.render(
+        'main/about',
+        {
+            pageTitle: 'About Verbosity',
+            path: '/about',
+            stopWords: wordData.stopWords
         }
     );
 };

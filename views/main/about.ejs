@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/about.css">
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/navigation.ejs') %>
+    <main class="main-entry">
+        <section class="about">
+            <h2>About Verbosity: The Website Word Analyzer</h2>
+            <p>
+                Welcome to Verbosity, an awesome system developed by
+                <a href="https://zakwarren.github.io/" target="_blank">Zak Warren</a>!
+            </p>
+            <p>
+                This web app takes in a URL and attempts to scrape all
+                the words from the website it points to. It then analyses
+                these words and presents it back to you.
+            </p>
+            <h3>Rules</h3>
+            <p>
+                Before analysing the word list, it cleans out all the (English)
+                stop words. Stop words are some of the most common words used in
+                the language and don't necessarily hold meaning on their own, but
+                help understanding by joining meaningful words together into
+                coherent sentences.
+            </p>
+            <p>
+                The stop words excluded from this web app's analysis are:
+                <ul>
+                    <% stopWords.forEach(word => { %>
+                        <li><%= word %></li>
+                    <% }); %>
+                </ul>
+            </p>
+        </section>
+    </main>
+
+<%- include('../includes/end.ejs') %>
