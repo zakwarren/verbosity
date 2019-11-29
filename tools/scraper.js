@@ -24,7 +24,7 @@ class Scraper {
         return $(this.pageBody)
             .text()
             .replace(/\s\s+/g, ' ')
-            .replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
+            .replace(/[.,"'\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
     };
 
     extractLinks($) {
@@ -59,7 +59,9 @@ class Scraper {
     splitWords(text) {
         const txtArr = text.split(' ');
         txtArr.forEach(word => {
-            this.siteText.push(word);
+            if (word.length > 0) {
+                this.siteText.push(word);
+            }
         });
     };
 
