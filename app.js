@@ -1,23 +1,22 @@
-const Scraper = require('./tools/scraper');
-const WordAnalyzer = require('./tools/word-analyzer');
+const path = require('path');
 
-const mainUrl = 'http://dominicwarren.com/';
-const urlSuffix = '.html';
-const pageBody = '#wrapper';
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const analyzeWords = words => {
-    if (words) {
-        const analyze = new WordAnalyzer(words);
-        analyze.analyze();
-        console.log(analyze.analysis);
-    }
-};
+const errorController = require('./controllers/error');
 
-//const myScraper = new Scraper(mainUrl, urlSuffix, pageBody);
-//myScraper.scrapeSite(analyzeWords);
+const app = express();
 
-const words = ['a', 'a', 'b', 'c', 'a', 'b', 'a', 'd', 'the', 'test', "i", "I"];
-const analyze = new WordAnalyzer(words);
-analyze.analyze();
-console.log(analyze.analysis);
-console.log(analyze.words);
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+const mainRoutes = require('./routes/main');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(mainRoutes);
+
+app.use(errorController.get404);
+
+app.listen(3000);

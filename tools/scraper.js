@@ -7,8 +7,8 @@ class Scraper {
         this.urlSuffix = urlSuffix || '';
         this.pageBody = pageBody || 'body';
         this.siteText = [];
-        this.siteLinks = [mainUrl, this.deviseErrorPage(mainUrl)];
-        this.linksToScrape = [mainUrl, this.deviseErrorPage(mainUrl)];
+        this.siteLinks = [mainUrl];
+        this.linksToScrape = [mainUrl];
     }
 
     deviseErrorPage(mainUrl) {
