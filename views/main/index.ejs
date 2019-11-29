@@ -2,8 +2,16 @@
 <%- include('../includes/start.ejs') %>
 
     <%- include('../includes/navigation.ejs') %>
-    <main>
-        <h1>Welcome!</h1>
+    <main class="main-entry">
+        <section class="panel-center">
+            <h2 class="content-header">Enter your URL to analyze the words on your website</h2>
+            <form action="/analysis" method="POST">
+                <div class="form-entry">
+                    <input type="text" name="url" id="url">
+                </div>
+                <button class="btn" type="submit">Analyze</button>
+            </form>
+        </section>
     </main>
 
 <%- include('../includes/end.ejs') %>
