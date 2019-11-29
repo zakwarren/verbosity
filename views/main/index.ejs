@@ -7,7 +7,12 @@
             <h2 class="content-header">Enter your URL to analyze the words on your website</h2>
             <form action="/analysis" method="POST">
                 <div class="form-entry">
+                    <label for="url">Enter your URL:</label>
                     <input type="text" name="url" id="url">
+                </div>
+                <div class="form-entry">
+                    <label for="urlSuffix">If your website uses a URL suffix (such as .html or .aspx), please enter it here:</label>
+                    <input type="text" name="urlSuffix" id="urlSuffix">
                 </div>
                 <button class="btn" type="submit">Analyze</button>
             </form>

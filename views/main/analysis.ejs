@@ -4,7 +4,9 @@
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
         <section class="panel-center">
-            <h1>Analyzing...</h1>
+            <h1>Analysis of <a target="_blank" href="<%= urlAnalyzed %>"><%= urlAnalyzed %></a></h1>
+            <p>There are <%= analysis.totalWords %> words on this website (excluding stop words).</p>
+            <p>The most used word is "<%= analysis.mostUsedWord %>" with <%= analysis.mostUses %> uses found.</p>
         </section>
     </main>
 
