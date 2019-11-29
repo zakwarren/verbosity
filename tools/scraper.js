@@ -4,8 +4,8 @@ const cheerio = require('cheerio');
 class Scraper {
     constructor(mainUrl, urlSuffix, pageBody) {
         this.mainUrl = mainUrl;
-        this.urlSuffix = urlSuffix;
-        this.pageBody = pageBody;
+        this.urlSuffix = urlSuffix || '';
+        this.pageBody = pageBody || 'body';
         this.siteText = [];
         this.siteLinks = [mainUrl, this.deviseErrorPage(mainUrl)];
         this.linksToScrape = [mainUrl, this.deviseErrorPage(mainUrl)];
@@ -63,9 +63,9 @@ class Scraper {
         });
     };
 
-    scrapeSite() {
+    scrapeSite(cb) {
         let url = this.linksToScrape.pop();
-        rp({ url: url })
+        rp({ url: url }, cb)
             .then(html => {
                 const $ = cheerio.load(html);
                 this.extractLinks($);
@@ -77,10 +77,9 @@ class Scraper {
             })
             .then(() => {
                 if (this.linksToScrape.length > 0) {
-                    console.log('Scraping: ' + url);
-                    this.scrapeSite();
-                } else {
-                    console.log('Words found: ' + this.siteText.length);
+                    this.scrapeSite(cb);
+                } else if (cb) {
+                    cb(this.siteText);
                 }
             })
             .catch(err => console.log(err));
