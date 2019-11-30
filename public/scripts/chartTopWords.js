@@ -57,7 +57,7 @@ const plotLabels = () => {
         .append('text')
         .text((d) => d.word)
         .attr('transform', (d, i) => {
-            let xCoordinate = barWidth * i + (padding * 1.5);
+            let xCoordinate = barWidth * i + (padding * 1.1);
             let yCoordinate = -barPadding;
             return 'translate(' + xCoordinate + ', ' + yCoordinate + ')';
         })
