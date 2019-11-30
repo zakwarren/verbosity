@@ -2,11 +2,12 @@ const wordData = require('../data/words');
 
 
 class analysis {
-    constructor(totalWords, mostUsedWord, mostUses, topWords) {
+    constructor(totalWords, mostUsedWord, mostUses, topTenWords, topHundredWords) {
         this.totalWords = totalWords || 0;
         this.mostUsedWord = mostUsedWord || '';
         this.mostUses = mostUses || 0;
-        this.topWords = topWords || [];
+        this.topTenWords = topTenWords || [];
+        this.topHundredWords = topHundredWords || topTenWords || [];
     }
 }
 
@@ -61,7 +62,7 @@ class WordAnalyzer {
         const wordCountCopy = JSON.parse(JSON.stringify(this.wordCount));
         const lengthOfWordCount = Object.keys(wordCountCopy).length;
 
-        if (lengthOfWordCount < 10) {
+        if (lengthOfWordCount < numberWords) {
             numberWords = lengthOfWordCount;
         }
 
@@ -85,9 +86,16 @@ class WordAnalyzer {
         const totalWords = this.words.length;
         const mostUsedWord = this.getMostUsedWord(this.wordCount);
         const mostUses = this.wordCount[mostUsedWord];
-        const topWords = this.getTopWords(10);
+        const topTenWords = this.getTopWords(10);
+        const topHundredWords = this.getTopWords(100);
 
-        this.analysis = new analysis(totalWords, mostUsedWord, mostUses, topWords);
+        this.analysis = new analysis(
+            totalWords,
+            mostUsedWord,
+            mostUses,
+            topTenWords,
+            topHundredWords
+        );
     }
 }
 

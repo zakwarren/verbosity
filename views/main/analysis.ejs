@@ -14,14 +14,37 @@
                 The most used word is "<%= analysis.mostUsedWord %>" with
                 <%= analysis.mostUses %> uses found.
             </p>
+            <p>
+                Top 10 words
+                <label class="switch">
+                    <input id="switchCheck" type="checkbox" name="checkbox">
+                    <span class="slider"></span>
+                </label>
+                Top 100 words
+            </p>
         </section>
         <section class="panel-center" id="chartTopWords"></section>
     </main>
 
     <script>
-        const dataset = JSON.parse('<%- JSON.stringify(analysis.topWords) %>');
+        const topTenWords = JSON.parse('<%- JSON.stringify(analysis.topTenWords) %>');
+        const topHundredWords = JSON.parse('<%- JSON.stringify(analysis.topHundredWords) %>');
+        let dataset = topTenWords;
     </script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="/scripts/chartTopWords.js"></script>
+    <script>
+        const switchCheck = document.getElementById('switchCheck');
+
+        switchCheck.addEventListener('change', function() {
+            if(this.checked) {
+                dataset = topHundredWords;
+                resetCanvas();
+            } else {
+                dataset = topTenWords;
+                resetCanvas();
+            }
+        });
+    </script>
 
 <%- include('../includes/end.ejs') %>

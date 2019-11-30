@@ -1,23 +1,30 @@
-const chartWidth = 800;
-const chartHeight = 600;
+const chartWidth = 1000;
+const chartHeight = 500;
 const padding = 25;
-const barWidth = (chartWidth / dataset.length) - (padding / dataset.length);
 const barPadding = 1;
-const heightFactor = 3;
+let barWidth = 0;
+let svg;
+let xScale;
+let yScale;
 
-const svg = d3.select('#chartTopWords')
+
+const setUpCanvas = () => {
+    barWidth = (chartWidth / dataset.length) - (padding / dataset.length);
+
+    svg = d3.select('#chartTopWords')
             .append('svg')
             .attr('width', chartWidth)
             .attr('height', chartHeight)
             .attr('class', 'chart');
 
-const xScale = d3.scaleLinear()
-            .domain([padding, dataset.length])
-            .range([padding, chartWidth - 1]);
+    xScale = d3.scaleLinear()
+                .domain([padding, dataset.length])
+                .range([padding, chartWidth - 1]);
 
-const yScale = d3.scaleLinear()
-            .domain([barPadding, d3.max(dataset, d => d.uses)])
-            .range([chartHeight - barPadding, barPadding]);
+    yScale = d3.scaleLinear()
+                .domain([barPadding, d3.max(dataset, d => d.uses)])
+                .range([chartHeight - barPadding, barPadding]);
+};
 
 
 const plotData = () => {
@@ -73,6 +80,19 @@ const plotAxis = () => {
         .call(yAxis);
 };
 
+
+const resetCanvas = () => {
+    const canvas = document.getElementById('chartTopWords');
+    while (canvas.lastChild) {
+        canvas.removeChild(canvas.lastChild);
+    }
+    setUpCanvas();
+    plotData();
+    plotLabels();
+    plotAxis();
+};
+
+setUpCanvas();
 plotData();
 plotLabels();
 plotAxis();
