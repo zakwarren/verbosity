@@ -5,7 +5,7 @@
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
         <section class="panel-center">
-            <h2>Analysis of <a target="_blank" href="<%= urlAnalyzed %>"><%= urlAnalyzed %></a></h2>
+            <h2>Analysis of <a class="header__link" target="_blank" href="<%= urlAnalyzed %>"><%= siteTitle %></a></h2>
             <p>
                 There are <%= analysis.totalWords %> words on this website
                 (excluding <a href="/about">stop words</a>).

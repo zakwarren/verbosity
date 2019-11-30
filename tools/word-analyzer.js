@@ -13,7 +13,8 @@ class analysis {
 
 
 class WordAnalyzer {
-    constructor(words) {
+    constructor(title, words) {
+        this.title = title || '';
         this.words = words || [];
         this.wordCount = {};
         this.analysis = {};

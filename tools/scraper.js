@@ -6,6 +6,7 @@ class Scraper {
         this.mainUrl = mainUrl;
         this.urlSuffix = urlSuffix || '';
         this.pageBody = pageBody || 'body';
+        this.siteTitle = '';
         this.siteText = [];
         this.siteLinks = [mainUrl];
         this.linksToScrape = [mainUrl];
@@ -19,6 +20,12 @@ class Scraper {
             return mainUrl + err;
         }
     }
+
+    extractTitle($) {
+        if (!this.siteTitle.length > 0) {
+            this.siteTitle = $('title').text();
+        }
+    };
 
     extractText($) {
         return $(this.pageBody)
@@ -70,6 +77,7 @@ class Scraper {
         rp({ url: url }, cb)
             .then(html => {
                 const $ = cheerio.load(html);
+                this.extractTitle($);
                 this.extractLinks($);
                 return this.extractText($);
             })
@@ -81,7 +89,7 @@ class Scraper {
                 if (this.linksToScrape.length > 0) {
                     this.scrapeSite(cb);
                 } else if (cb) {
-                    cb(this.siteText);
+                    cb(this.siteTitle, this.siteText);
                 }
             })
             .catch(err => console.log(err));

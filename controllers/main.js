@@ -32,9 +32,9 @@ exports.postAnalysis = (req, res, next) => {
         res.redirect(302, '/');
     }
 
-    const analyzeWords = words => {
-        if (words) {
-            const analyze = new WordAnalyzer(words);
+    const analyzeWords = (title, words) => {
+        if (title && words) {
+            const analyze = new WordAnalyzer(title, words);
             analyze.analyze();
 
             res.render(
@@ -43,6 +43,7 @@ exports.postAnalysis = (req, res, next) => {
                     pageTitle: 'Word Analysis',
                     path: '/analysis',
                     urlAnalyzed: url,
+                    siteTitle: analyze.title,
                     analysis: analyze.analysis
                 }
             );
