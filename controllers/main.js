@@ -28,6 +28,10 @@ exports.postAnalysis = (req, res, next) => {
     const url = req.body.url;
     const urlSuffix = req.body.urlSuffix;
 
+    if (!url) {
+        res.redirect(302, '/');
+    }
+
     const analyzeWords = words => {
         if (words) {
             const analyze = new WordAnalyzer(words);
