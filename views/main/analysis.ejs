@@ -1,4 +1,5 @@
 <%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/chart.css">
 <%- include('../includes/start.ejs') %>
 
     <%- include('../includes/navigation.ejs') %>
@@ -13,15 +14,14 @@
                 The most used word is "<%= analysis.mostUsedWord %>" with
                 <%= analysis.mostUses %> uses found.
             </p>
-            <p>
-                The top ten words used are:
-                <ul>
-                    <% for (let word in analysis.topWords) { %>
-                        <li><%= word %>: <%= analysis.topWords[word] %></li>
-                    <% }; %>
-                </ul>
-            </p>
         </section>
+        <section class="panel-center" id="chartTopWords"></section>
     </main>
+
+    <script>
+        const dataset = JSON.parse('<%- JSON.stringify(analysis.topWords) %>');
+    </script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="/scripts/chartTopWords.js"></script>
 
 <%- include('../includes/end.ejs') %>

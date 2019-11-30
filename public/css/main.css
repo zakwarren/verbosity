@@ -38,6 +38,10 @@ input {
     font-size: 1.2vw;
 }
 
+text {
+    font-size: 0.6vw;
+}
+
 @media (max-width: 1000px) {
     h1 {
         font-size: 5vw;
@@ -60,6 +64,10 @@ input {
     input {
         font-size: 1.8vw;
     }
+
+    text {
+        font-size: 0.9vw;
+    }
 }
 
 @media (max-width: 800px) {
@@ -79,6 +87,10 @@ input {
     label,
     input {
         font-size: 4.8vw;
+    }
+
+    text {
+        font-size: 2.4vw;
     }
 }
 
@@ -161,6 +173,7 @@ main {
 
 .main-entry {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

@@ -6,7 +6,7 @@ class analysis {
         this.totalWords = totalWords || 0;
         this.mostUsedWord = mostUsedWord || '';
         this.mostUses = mostUses || 0;
-        this.topWords = topWords || {};
+        this.topWords = topWords || [];
     }
 }
 
@@ -57,7 +57,7 @@ class WordAnalyzer {
     }
 
     getTopWords(numberWords) {
-        const topWords = {};
+        const topWords = [];
         const wordCountCopy = JSON.parse(JSON.stringify(this.wordCount));
         const lengthOfWordCount = Object.keys(wordCountCopy).length;
 
@@ -66,9 +66,13 @@ class WordAnalyzer {
         }
 
         let word = '';
+        let uses = 0;
+        let wrdObj = {};
         for (let i = 0; i < numberWords; i++) {
             word = this.getMostUsedWord(wordCountCopy);
-            topWords[word] = wordCountCopy[word];
+            uses = wordCountCopy[word];
+            wrdObj = {"word": word, "uses": uses};
+            topWords.push(wrdObj);
             delete wordCountCopy[word];
         }
 

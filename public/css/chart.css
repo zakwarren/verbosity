@@ -1,0 +1,12 @@
+.chart {
+    background-color: var(--color-white);
+}
+
+.bar {
+    fill: var(--color-main);
+}
+
+.bar__label {
+    fill: var(--color-white);
+    font-weight: bold;
+}
