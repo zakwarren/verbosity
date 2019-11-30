@@ -1,5 +1,9 @@
 exports.stopWords = [
     "i",
+    "i’m",
+    "im",
+    "i’ve",
+    "ive",
     "me",
     "my",
     "myself",
@@ -9,6 +13,7 @@ exports.stopWords = [
     "ourselves",
     "you",
     "your",
+    "youre",
     "yours",
     "yourself",
     "yourselves",
@@ -22,6 +27,7 @@ exports.stopWords = [
     "herself",
     "it",
     "its",
+    "it’s",
     "itself",
     "they",
     "them",
@@ -94,6 +100,7 @@ exports.stopWords = [
     "once",
     "here",
     "there",
+    "theres",
     "when",
     "where",
     "why",
@@ -124,6 +131,7 @@ exports.stopWords = [
     "will",
     "just",
     "don",
+    "dont",
     "should",
     "now"
 ];
