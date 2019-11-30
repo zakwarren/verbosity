@@ -2,10 +2,11 @@ const wordData = require('../data/words');
 
 
 class analysis {
-    constructor(totalWords, mostUsedWord, mostUses) {
+    constructor(totalWords, mostUsedWord, mostUses, topWords) {
         this.totalWords = totalWords || 0;
         this.mostUsedWord = mostUsedWord || '';
         this.mostUses = mostUses || 0;
+        this.topWords = topWords || {};
     }
 }
 
@@ -44,10 +45,10 @@ class WordAnalyzer {
         });
     }
 
-    getMostUsedWord() {
-        return Object.keys(this.wordCount)
+    getMostUsedWord(wordCountList) {
+        return Object.keys(wordCountList)
                     .reduce((a, b) => {
-                        if (this.wordCount[a] > this.wordCount[b]) {
+                        if (wordCountList[a] > wordCountList[b]) {
                             return a;
                         } else {
                             return b;
@@ -55,14 +56,34 @@ class WordAnalyzer {
                     });
     }
 
+    getTopWords(numberWords) {
+        const topWords = {};
+        const wordCountCopy = JSON.parse(JSON.stringify(this.wordCount));
+        const lengthOfWordCount = Object.keys(wordCountCopy).length;
+
+        if (lengthOfWordCount < 10) {
+            numberWords = lengthOfWordCount;
+        }
+
+        let word = '';
+        for (let i = 0; i < numberWords; i++) {
+            word = this.getMostUsedWord(wordCountCopy);
+            topWords[word] = wordCountCopy[word];
+            delete wordCountCopy[word];
+        }
+
+        return topWords;
+    }
+
     analyze() {
         this.cleanWordList();
         this.countWords();
         const totalWords = this.words.length;
-        const mostUsedWord = this.getMostUsedWord();
+        const mostUsedWord = this.getMostUsedWord(this.wordCount);
         const mostUses = this.wordCount[mostUsedWord];
+        const topWords = this.getTopWords(10);
 
-        this.analysis = new analysis(totalWords, mostUsedWord, mostUses);
+        this.analysis = new analysis(totalWords, mostUsedWord, mostUses, topWords);
     }
 }
 

@@ -13,6 +13,14 @@
                 The most used word is "<%= analysis.mostUsedWord %>" with
                 <%= analysis.mostUses %> uses found.
             </p>
+            <p>
+                The top ten words used are:
+                <ul>
+                    <% for (let word in analysis.topWords) { %>
+                        <li><%= word %>: <%= analysis.topWords[word] %></li>
+                    <% }; %>
+                </ul>
+            </p>
         </section>
     </main>
 
