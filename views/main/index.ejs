@@ -1,11 +1,12 @@
 <%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/loader.css">
 <%- include('../includes/start.ejs') %>
 
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
         <section class="panel-center">
             <h2 class="content-header">Enter your URL to analyze the words on your website</h2>
-            <form action="/analysis" method="POST">
+            <form id="formAnalysis" action="/analysis" method="POST">
                 <div class="form-entry">
                     <label for="url">Enter your URL:</label>
                     <input type="text" name="url" id="url">
@@ -14,9 +15,12 @@
                     <label for="urlSuffix">If your website uses a URL suffix (such as .html or .aspx), please enter it here:</label>
                     <input type="text" name="urlSuffix" id="urlSuffix">
                 </div>
-                <button class="btn" type="submit">Analyze</button>
             </form>
+            <button id="btnLoad" class="btn">Analyze</button>
+            <h2 id="loader" class="loader">Loading<div class="loader-animation"><div></div><div></div><div></div><div></div></div></h2>
         </section>
     </main>
+
+    <script src="/scripts/loader.js"></script>
 
 <%- include('../includes/end.ejs') %>
