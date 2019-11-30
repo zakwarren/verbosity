@@ -39,6 +39,7 @@ class WordAnalyzer {
 
     countWords() {
         this.words.forEach(word => {
+            word = word.toLowerCase();
             if (this.wordCount[word]) {
                 this.wordCount[word] += 1;
             } else {
