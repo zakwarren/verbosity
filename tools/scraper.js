@@ -7,7 +7,8 @@ class Scraper {
         this.urlSuffix = urlSuffix || '';
         this.pageBody = pageBody || 'body';
         this.siteTitle = '';
-        this.siteText = [];
+        this.siteText = '';
+        this.siteWords = [];
         this.siteLinks = [mainUrl];
         this.linksToScrape = [mainUrl];
     }
@@ -67,7 +68,7 @@ class Scraper {
         const txtArr = text.split(' ');
         txtArr.forEach(word => {
             if (word.length > 0) {
-                this.siteText.push(word);
+                this.siteWords.push(word);
             }
         });
     };
@@ -82,6 +83,7 @@ class Scraper {
                 return this.extractText($);
             })
             .then(pageText => {
+                this.siteText += ' ' + pageText;
                 this.splitWords(pageText);
                 return;
             })
@@ -89,7 +91,7 @@ class Scraper {
                 if (this.linksToScrape.length > 0) {
                     this.scrapeSite(cb);
                 } else if (cb) {
-                    cb(this.siteTitle, this.siteText);
+                    cb(this.siteTitle, this.siteWords, this.siteText);
                 }
             })
             .catch(err => console.log(err));
