@@ -31,7 +31,7 @@ class Scraper {
         return $(this.pageBody)
             .text()
             .replace(/\s\s+/g, ' ')
-            .replace(/[.,"'’\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
+            .replace(/[.,"'’\/#!?$%\^&\*;:{}<>=\-_`~()©]/g,"");
     };
 
     extractLinks($) {

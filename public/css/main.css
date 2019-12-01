@@ -241,6 +241,16 @@ input:checked + .slider:before {
     transform: translateX(1.3vw);
 }
 
+.panel-results {
+    width: 60%;
+}
+
+@media (max-width: 1000px) {
+    .panel-results {
+        width: 80%;
+    }
+}
+
 .view-switch {
     position: absolute;
     top: 5vw;
@@ -248,6 +258,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 800px) {
+    .panel-results {
+        width: 100%;
+    }
+
     .view-switch {
         position: relative;
     }

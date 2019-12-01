@@ -5,7 +5,7 @@
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
         <button id="switchPanel" class="btn view-switch">View Blog</button>
-        <div id="panelData">
+        <div id="panelData" class="panel-results">
             <section class="panel-center">
                 <h2>Analysis of <a class="header__link" target="_blank" href="<%= urlAnalyzed %>"><%= siteTitle %></a></h2>
                 <p>
@@ -27,7 +27,7 @@
             </section>
             <section class="panel-center" id="chartTopWords"></section>
         </div>
-        <div id="panelBlog">
+        <div id="panelBlog" class="panel-results">
             <section class="panel-center">
                 <h2>Computer Generated Blog</h2>
                 <p>
@@ -37,7 +37,7 @@
                 </p>
             </section>
             <section class="blog" id="blog">
-                <%= generatedBlog %>
+                <p><%= generatedBlog %></p>
             </section>
         </div>
     </main>
