@@ -13,3 +13,36 @@
         width: 100%;
     }
 }
+
+.accordion {
+    padding: 1vw 1vw 1vw 0;
+    width: 100%;
+    background-color: var(--color-white);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 1s ease;
+}
+
+.accordion:after {
+    content: '\02795';
+    color: var(--color-black);
+    float: right;
+    margin-left: 0.5vw;
+}
+
+.accordion-active, .accordion:hover {
+    background-color: var(--color-gray);
+}
+
+.accordion-active:after {
+    content: '\2796';
+}
+
+.panel-accordion {
+    margin-top: 0;
+    max-height: 0;
+    background-color: var(--color-gray);
+    overflow: hidden;
+    transition: max-height 1s ease-out;
+}
