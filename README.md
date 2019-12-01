@@ -41,6 +41,66 @@ Once all the dependencies are successfully installed, run:
 npm start
 ```
 
+## Tools
+
+There are two files in the tools directory that can be used
+indepently from the rest of this application. These are:
+
+* scraper.js (containing the Scraper class)
+* word-analyzer.js (containing the WordAnalyzer class and its
+dependency, the analysis class)
+
+### Scraper
+
+The Scraper class takes in a URL, connects to the website and
+scrapes all the pages, and returns all the words it finds. Pass
+in the URL when creating the new Scraper object. You can also
+pass in an optional body argument, which tells the scraper what
+part of the HTML document to focus on. For example, 'body'
+searches everything in the body tag and '#main' searches everything
+in the first element it finds with an ID of 'main'.
+
+To scrape a website, call the scrapeSite method and pass in a
+callback and an optional error handling callback. Example usage:
+
+```javascript
+const WebScraper = require('./path/to/Scraper');
+
+const url = 'http://www.example.com/';
+
+const logWords = (title, words, textCorpus) => {
+    if (title && words) {
+        console.log(title + ': ' + words);
+    }
+};
+
+const logErrors = error => {
+    console.log(error);
+};
+
+const myScraper = new WebScraper(url);
+myScraper.scrapeSite(logWords, logErrors);
+```
+
+### WordAnalyzer
+
+The WordAnalyzer class takes in a title and an array of words
+and returns various analytics about these words. To analyse the
+words, call the analyse method. You can then access the results
+by calling the object's analysis parameter. Example usage:
+
+```javascript
+const WordAnalyzer = require('./path/to/word-analyzer');
+
+const title = 'Words';
+const words = ['a', 'a', 'b', 'c', 'a', 'b', 'a', 'd', 'the', 'test', "i", "I"];
+
+const analyze = new WordAnalyzer(title, words);
+analyze.analyze();
+
+console.log(analyze.analysis);
+```
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details
