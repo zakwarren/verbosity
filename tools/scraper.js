@@ -2,9 +2,8 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 
 class Scraper {
-    constructor(mainUrl, urlSuffix, pageBody) {
+    constructor(mainUrl, pageBody) {
         this.mainUrl = mainUrl;
-        this.urlSuffix = urlSuffix || '';
         this.pageBody = pageBody || 'body';
         this.siteTitle = '';
         this.siteText = '';
@@ -44,9 +43,6 @@ class Scraper {
                             link.includes(this.mainUrl)
                             && link !== this.mainUrl
                     )) {
-                        if (!link.includes(this.urlSuffix)) {
-                            link += this.urlSuffix;
-                        }
                         if (link.charAt(0) === '/' && link[link.length -1] !== '/') {
                             link = link.substr(1, link.length);
                         }

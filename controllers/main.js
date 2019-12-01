@@ -30,7 +30,6 @@ exports.getAbout = (req, res, next) => {
 
 exports.postAnalysis = (req, res, next) => {
     const url = req.body.url;
-    const urlSuffix = req.body.urlSuffix;
 
     if (!url) {
         res.redirect(302, '/');
@@ -63,6 +62,6 @@ exports.postAnalysis = (req, res, next) => {
         }
     };
     
-    const myScraper = new Scraper(url, urlSuffix);
+    const myScraper = new Scraper(url);
     myScraper.scrapeSite(analyzeWords);
 };
