@@ -4,6 +4,7 @@ const Scraper = require('../tools/scraper');
 const WordAnalyzer = require('../tools/word-analyzer');
 const wordData = require('../data/words');
 
+const titleLength = 10;
 const blogLength = 1000;
 
 
@@ -40,10 +41,18 @@ exports.postAnalysis = (req, res, next) => {
             const analyze = new WordAnalyzer(title, words);
             analyze.analyze();
 
+            const blogSource = new MarkovChain(textCorpus);
+
+            const randomTitleWord = words[
+                Math.floor(Math.random() * words.length)
+            ];
+            const blogTitle = blogSource.start(randomTitleWord)
+                                        .end(titleLength)
+                                        .process();
+
             const randomStartWord = words[
                 Math.floor(Math.random() * words.length)
             ];
-            const blogSource = new MarkovChain(textCorpus);
             const blog = blogSource.start(randomStartWord)
                                     .end(blogLength)
                                     .process();
@@ -56,7 +65,8 @@ exports.postAnalysis = (req, res, next) => {
                     urlAnalyzed: url,
                     siteTitle: analyze.title,
                     analysis: analyze.analysis,
-                    generatedBlog: blog
+                    generatedTitle: blogTitle.charAt(0).toUpperCase() + blogTitle.slice(1),
+                    generatedBlog: blog.charAt(0).toUpperCase() + blog.slice(1)
                 }
             );
         }
