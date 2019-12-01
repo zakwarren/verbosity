@@ -15,6 +15,11 @@
             <button id="btnLoad" class="btn">Analyze</button>
             <h2 id="loader" class="loader">Loading<div class="loader-animation"><div></div><div></div><div></div><div></div></div></h2>
         </section>
+        <% if (error) { %>
+            <section class="panel-center">
+                <h2 class="error">An error occurred! Please try another URL</h2>
+            </section>
+        <% } %>
     </main>
 
     <script src="/scripts/loader.js"></script>

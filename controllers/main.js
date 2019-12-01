@@ -13,7 +13,8 @@ exports.getHome = (req, res, next) => {
         'main/index',
         {
             pageTitle: 'Verbosity',
-            path: '/'
+            path: '/',
+            error: false
         }
     );
 };

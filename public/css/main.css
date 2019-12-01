@@ -1,6 +1,7 @@
 :root {
     --color-main: #0a74ff;
     --color-gray: #dad8d8;
+    --color-error: #b10000;
     --color-white: #f0f0f0;
     --color-black: #000000;
     --color-shadow: rgba(0, 0, 0, 0.26);
@@ -272,4 +273,9 @@ input:checked + .slider:before {
 
 #panelBlog {
     display: none;
+}
+
+.error {
+    border-bottom: 0.2vw solid var(--color-error);
+    border-radius: 0.2vw;
 }
