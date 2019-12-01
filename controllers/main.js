@@ -37,6 +37,17 @@ exports.postAnalysis = (req, res, next) => {
         res.redirect(302, '/');
     }
 
+    const handleErrors = error => {
+        res.render(
+            'main/index',
+            {
+                pageTitle: 'Verbosity',
+                path: '/',
+                error: true
+            }
+        );
+    };
+
     const analyzeWords = (title, words, textCorpus) => {
         if (title && words) {
             const analyze = new WordAnalyzer(title, words);
@@ -74,5 +85,5 @@ exports.postAnalysis = (req, res, next) => {
     };
     
     const myScraper = new Scraper(url);
-    myScraper.scrapeSite(analyzeWords);
+    myScraper.scrapeSite(analyzeWords, handleErrors);
 };

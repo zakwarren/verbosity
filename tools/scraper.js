@@ -73,7 +73,12 @@ class Scraper {
         });
     };
 
-    scrapeSite(cb) {
+    logErrors(err) {
+        console.log(err);
+    }
+
+    scrapeSite(cb, errorCb) {
+        errorCb = errorCb || this.logErrors;
         let url = this.linksToScrape.pop();
         rp({ url: url }, cb)
             .then(html => {
@@ -89,12 +94,12 @@ class Scraper {
             })
             .then(() => {
                 if (this.linksToScrape.length > 0) {
-                    this.scrapeSite(cb);
+                    this.scrapeSite(cb, errorCb);
                 } else if (cb) {
                     cb(this.siteTitle, this.siteWords, this.siteText);
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => errorCb(err));
         };
 };
 
