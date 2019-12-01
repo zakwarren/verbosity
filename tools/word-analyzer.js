@@ -21,20 +21,22 @@ class WordAnalyzer {
     }
 
     cleanWordList() {
-        const wordList = [];
-        this.words.forEach(word => {
-            const capitalWord = word.toUpperCase();
-            let isStopWord = false;
-            wordData.stopWords.forEach(stopWord => {
-                if (capitalWord === stopWord.toUpperCase()) {
-                    isStopWord = true;
+        if (wordData) {
+            const wordList = [];
+            this.words.forEach(word => {
+                const capitalWord = word.toUpperCase();
+                let isStopWord = false;
+                wordData.stopWords.forEach(stopWord => {
+                    if (capitalWord === stopWord.toUpperCase()) {
+                        isStopWord = true;
+                    }
+                });
+                if (!isStopWord) {
+                    wordList.push(word);
                 }
             });
-            if (!isStopWord) {
-                wordList.push(word);
-            }
-        });
-        this.words = wordList;
+            this.words = wordList;
+        }
     }
 
     countWords() {
