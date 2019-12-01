@@ -4,26 +4,42 @@
 
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
-        <section class="panel-center">
-            <h2>Analysis of <a class="header__link" target="_blank" href="<%= urlAnalyzed %>"><%= siteTitle %></a></h2>
-            <p>
-                There are <%= analysis.totalWords %> words on this website
-                (excluding <a href="/about">stop words</a>).
-            </p>
-            <p>
-                The most used word is "<%= analysis.mostUsedWord %>" with
-                <%= analysis.mostUses %> uses found.
-            </p>
-            <p>
-                Top 10 words
-                <label class="switch">
-                    <input id="switchCheck" type="checkbox" name="checkbox">
-                    <span class="slider"></span>
-                </label>
-                Top 100 words
-            </p>
-        </section>
-        <section class="panel-center" id="chartTopWords"></section>
+        <button id="switchPanel" class="btn view-switch">View Blog</button>
+        <div id="panelData">
+            <section class="panel-center">
+                <h2>Analysis of <a class="header__link" target="_blank" href="<%= urlAnalyzed %>"><%= siteTitle %></a></h2>
+                <p>
+                    There are <%= analysis.totalWords %> words on this website
+                    (excluding <a href="/about">stop words</a>).
+                </p>
+                <p>
+                    The most used word is "<%= analysis.mostUsedWord %>" with
+                    <%= analysis.mostUses %> uses found.
+                </p>
+                <p>
+                    Top 10 words
+                    <label class="switch">
+                        <input id="switchCheck" type="checkbox" name="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    Top 100 words
+                </p>
+            </section>
+            <section class="panel-center" id="chartTopWords"></section>
+        </div>
+        <div id="panelBlog">
+            <section class="panel-center">
+                <h2>Computer Generated Blog</h2>
+                <p>
+                    This blog is generated using <a href="/about">Markov Chains</a>,
+                    which have been trained using the words and phrases from
+                    <a target="_blank" href="<%= urlAnalyzed %>"><%= siteTitle %></a>
+                </p>
+            </section>
+            <section class="blog" id="blog">
+                <%= generatedBlog %>
+            </section>
+        </div>
     </main>
 
     <script>
@@ -34,7 +50,22 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="/scripts/chartTopWords.js"></script>
     <script>
+        const panelData = document.getElementById('panelData');
+        const panelBlog = document.getElementById('panelBlog');
+        const switchPanel = document.getElementById('switchPanel');
         const switchCheck = document.getElementById('switchCheck');
+
+        switchPanel.addEventListener('click', function() {
+            if (switchPanel.textContent === 'View Blog') {
+                switchPanel.textContent = 'View Analysis';
+                panelData.style.display = 'none';
+                panelBlog.style.display = 'block';
+            } else {
+                switchPanel.textContent = 'View Blog';
+                panelData.style.display = 'block';
+                panelBlog.style.display = 'none';
+            }
+        });
 
         switchCheck.addEventListener('change', function() {
             if(this.checked) {
