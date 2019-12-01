@@ -31,7 +31,8 @@ class Scraper {
         return $(this.pageBody)
             .text()
             .replace(/\s\s+/g, ' ')
-            .replace(/[.,"'’\/#!?$%\^&\*;:{}<>=\-_`~()©]/g,"");
+            .replace(/\n/g, ' ')
+            .replace(/[.,"“”'‘’\\\/|#!?$%\^&\*;:{}<>=\-_`~()©\[\]]/g,"");
     };
 
     extractLinks($) {
@@ -39,6 +40,9 @@ class Scraper {
             .each((i, element) => {
                 let link = $(element).attr('href');
                 if (link) {
+                    if (link.includes('mailto')) {
+                        return;
+                    }
                     if (!link.includes('http') || (
                             link.includes(this.mainUrl)
                             && link !== this.mainUrl
