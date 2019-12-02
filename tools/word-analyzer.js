@@ -1,6 +1,3 @@
-const wordData = require('../data/words');
-
-
 class analysis {
     constructor(totalWords, mostUsedWord, mostUses, topTenWords, topHundredWords) {
         this.totalWords = totalWords || 0;
@@ -20,13 +17,13 @@ class WordAnalyzer {
         this.analysis = {};
     }
 
-    cleanWordList() {
-        if (wordData) {
+    cleanWordList(stopWords) {
+        if (stopWords) {
             const wordList = [];
             this.words.forEach(word => {
                 const capitalWord = word.toUpperCase();
                 let isStopWord = false;
-                wordData.stopWords.forEach(stopWord => {
+                stopWords.forEach(stopWord => {
                     if (capitalWord === stopWord.toUpperCase()) {
                         isStopWord = true;
                     }
@@ -84,8 +81,8 @@ class WordAnalyzer {
         return topWords;
     }
 
-    analyze() {
-        this.cleanWordList();
+    analyze(stopWords) {
+        this.cleanWordList(stopWords);
         this.countWords();
         const totalWords = this.words.length;
         const mostUsedWord = this.getMostUsedWord(this.wordCount);

@@ -51,7 +51,7 @@ exports.postAnalysis = (req, res, next) => {
     const analyzeWords = (title, words, textCorpus) => {
         if (title && words) {
             const analyze = new WordAnalyzer(title, words);
-            analyze.analyze();
+            analyze.analyze(wordData.stopWords);
 
             const blogSource = new MarkovChain(textCorpus);
 

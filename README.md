@@ -86,17 +86,19 @@ myScraper.scrapeSite(logWords, logErrors);
 
 The WordAnalyzer class takes in a title and an array of words
 and returns various analytics about these words. To analyse the
-words, call the analyse method. You can then access the results
-by calling the object's analysis parameter. Example usage:
+words, call the analyze method. To exclude stop words, pass in an
+array of stop words to the analyze method. You can then access the
+results by calling the object's analysis parameter. Example usage:
 
 ```javascript
 const WordAnalyzer = require('./path/to/word-analyzer');
+const wordData = require('./path/to/stop-words');
 
 const title = 'Words';
 const words = ['a', 'a', 'b', 'c', 'a', 'b', 'a', 'd', 'the', 'test', "i", "I"];
 
 const analyze = new WordAnalyzer(title, words);
-analyze.analyze();
+analyze.analyze(wordData.stopWords);
 
 console.log(analyze.analysis);
 ```
