@@ -43,12 +43,13 @@ npm start
 
 ## Tools
 
-There are two files in the tools directory that can be used
+There are three files in the tools directory that can be used
 indepently from the rest of this application. These are:
 
 * scraper.js (containing the Scraper class)
 * word-analyzer.js (containing the WordAnalyzer class and its
 dependency, the analysis class)
+* blog-writer.js (containing the writeBlog function)
 
 ### Scraper
 
@@ -102,6 +103,24 @@ analyze.analyze(wordData.stopWords);
 
 console.log(analyze.analysis);
 ```
+
+### writeBlog
+
+The writeBlog function takes in these arguments:
+
+* textCorpus - this should be a single string containing all the
+words to be analyzed for the writing of the blog
+* listOfWords - this is an array of all the words that could be
+used to seed the title and content of the blog
+* titleLength - an optional number of words for the length of the
+title (defaults to 10)
+* blogLength - an optional number of words for the length of the
+blog content (defaults to 1000)
+
+This function returns an object containing:
+
+* blogTitle
+* blogContent
 
 ## Contributing
 

@@ -1,9 +1,8 @@
-const MarkovChain = require('markovchain');
-
 const { validationResult } = require('express-validator');
 
 const Scraper = require('../tools/scraper');
 const WordAnalyzer = require('../tools/word-analyzer');
+const blogWriter = require('../tools/blog-writer');
 const wordData = require('../data/words');
 
 const titleLength = 10;
@@ -53,21 +52,7 @@ exports.postAnalysis = (req, res, next) => {
             const analyze = new WordAnalyzer(title, words);
             analyze.analyze(wordData.stopWords);
 
-            const blogSource = new MarkovChain(textCorpus);
-
-            const randomTitleWord = words[
-                Math.floor(Math.random() * words.length)
-            ];
-            const blogTitle = blogSource.start(randomTitleWord)
-                                        .end(titleLength)
-                                        .process();
-
-            const randomStartWord = words[
-                Math.floor(Math.random() * words.length)
-            ];
-            const blog = blogSource.start(randomStartWord)
-                                    .end(blogLength)
-                                    .process();
+            const blogObj = blogWriter.writeBlog(textCorpus, words, titleLength, blogLength);
 
             res.render(
                 'main/analysis',
@@ -77,8 +62,8 @@ exports.postAnalysis = (req, res, next) => {
                     urlAnalyzed: url,
                     siteTitle: analyze.title,
                     analysis: analyze.analysis,
-                    generatedTitle: blogTitle.charAt(0).toUpperCase() + blogTitle.slice(1),
-                    generatedBlog: blog.charAt(0).toUpperCase() + blog.slice(1)
+                    generatedTitle: blogObj.blogTitle,
+                    generatedBlog: blogObj.blogContent
                 }
             );
         }
