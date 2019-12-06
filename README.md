@@ -74,7 +74,7 @@ const logWords = (title, words, textCorpus) => {
     }
 };
 
-const logErrors = error => {
+const logErrors = (error, htmlStatusCode) => {
     console.log(error);
 };
 

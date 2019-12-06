@@ -99,7 +99,7 @@ class Scraper {
                     cb(this.siteTitle, this.siteWords, this.siteText);
                 }
             })
-            .catch(err => errorCb(err));
+            .catch(err => errorCb(err, 500));
         };
 };
 

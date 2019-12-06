@@ -1,5 +1,7 @@
 const MarkovChain = require('markovchain');
 
+const { validationResult } = require('express-validator');
+
 const Scraper = require('../tools/scraper');
 const WordAnalyzer = require('../tools/word-analyzer');
 const wordData = require('../data/words');
@@ -32,13 +34,11 @@ exports.getAbout = (req, res, next) => {
 
 exports.postAnalysis = (req, res, next) => {
     const url = req.body.url;
+    const errors = validationResult(req);
 
-    if (!url) {
-        res.redirect(302, '/');
-    }
-
-    const handleErrors = error => {
-        res.render(
+    const handleErrors = (error, htmlCode) => {
+        htmlCode = htmlCode || 500;
+        res.status(htmlCode).render(
             'main/index',
             {
                 pageTitle: 'Verbosity',
@@ -83,6 +83,10 @@ exports.postAnalysis = (req, res, next) => {
             );
         }
     };
+
+    if (!errors.isEmpty()) {
+        return handleErrors(errors, 422);
+    }
     
     const myScraper = new Scraper(url);
     myScraper.scrapeSite(analyzeWords, handleErrors);
