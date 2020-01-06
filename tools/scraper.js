@@ -12,7 +12,7 @@ class Scraper {
         this.linksToScrape = [mainUrl];
     }
 
-    deviseErrorPage(mainUrl) {
+    deviseErrorPage = mainUrl => {
         const err = '404.html';
         if (mainUrl[mainUrl.length -1] !== '/') {
             return mainUrl + '/' + err;
@@ -21,13 +21,13 @@ class Scraper {
         }
     }
 
-    extractTitle($) {
+    extractTitle = $ => {
         if (!this.siteTitle.length > 0) {
             this.siteTitle = $('title').text();
         }
     };
 
-    extractText($) {
+    extractText = $ => {
         return $(this.pageBody)
             .text()
             .replace(/\s\s+/g, ' ')
@@ -35,7 +35,7 @@ class Scraper {
             .replace(/[.,"“”'‘’\\\/|#!?$%\^&\*;:{}<>=\-_`~()©\[\]]/g,"");
     };
 
-    extractLinks($) {
+    extractLinks = $ => {
         $('a')
             .each((i, element) => {
                 let link = $(element).attr('href');
@@ -64,7 +64,7 @@ class Scraper {
             });
     };
 
-    splitWords(text) {
+    splitWords = text => {
         const txtArr = text.split(' ');
         txtArr.forEach(word => {
             if (word.length > 0) {
@@ -73,34 +73,33 @@ class Scraper {
         });
     };
 
-    logErrors(err) {
+    logErrors = err => {
         console.log(err);
-    }
+    };
 
-    scrapeSite(cb, errorCb) {
-        errorCb = errorCb || this.logErrors;
-        let url = this.linksToScrape.pop();
-        rp({ url: url }, cb)
-            .then(html => {
-                const $ = cheerio.load(html);
-                this.extractTitle($);
-                this.extractLinks($);
-                return this.extractText($);
-            })
-            .then(pageText => {
-                this.siteText += ' ' + pageText;
-                this.splitWords(pageText);
-                return;
-            })
-            .then(() => {
-                if (this.linksToScrape.length > 0) {
-                    this.scrapeSite(cb, errorCb);
-                } else if (cb) {
-                    cb(this.siteTitle, this.siteWords, this.siteText);
-                }
-            })
-            .catch(err => errorCb(err, 500));
+    scrapeSite = async (cb, errorCb) => {
+        try {
+            errorCb = errorCb || this.logErrors;
+            let url = this.linksToScrape.pop();
+            const html = await rp({ url: url }, cb);
+
+            const $ = cheerio.load(html);
+            this.extractTitle($);
+            this.extractLinks($);
+            const pageText = await this.extractText($);
+
+            this.siteText += ' ' + pageText;
+            this.splitWords(pageText);
+
+            if (this.linksToScrape.length > 0) {
+                this.scrapeSite(cb, errorCb);
+            } else if (cb) {
+                cb(this.siteTitle, this.siteWords, this.siteText);
+            }
+        } catch (err) {
+            errorCb(err, 500);
         };
+    };
 };
 
 module.exports = Scraper;
