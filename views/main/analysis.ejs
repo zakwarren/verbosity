@@ -25,7 +25,7 @@
                     Top 100 words
                 </p>
             </section>
-            <section class="panel-center" id="chartTopWords"></section>
+            <section class="panel-center" id="dashboardChart"></section>
         </div>
         <div id="panelBlog" class="panel-results">
             <section class="panel-center">
@@ -43,18 +43,19 @@
         </div>
     </main>
 
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="/scripts/barchart.js"></script>
     <script>
         const topTenWords = JSON.parse('<%- JSON.stringify(analysis.topTenWords) %>');
         const topHundredWords = JSON.parse('<%- JSON.stringify(analysis.topHundredWords) %>');
-        let dataset = topTenWords;
-    </script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="/scripts/chartTopWords.js"></script>
-    <script>
+
         const panelData = document.getElementById('panelData');
         const panelBlog = document.getElementById('panelBlog');
         const switchPanel = document.getElementById('switchPanel');
         const switchCheck = document.getElementById('switchCheck');
+        const dashboardChart = document.getElementById('dashboardChart');
+
+        const barChart = new BarChart(topTenWords, 'word', 'uses');
 
         switchPanel.addEventListener('click', function() {
             if (switchPanel.textContent === 'View Blog') {
@@ -70,11 +71,11 @@
 
         switchCheck.addEventListener('change', function() {
             if(this.checked) {
-                dataset = topHundredWords;
-                resetCanvas();
+                barChart.dataset = topHundredWords;
+                barChart.resetCanvas();
             } else {
-                dataset = topTenWords;
-                resetCanvas();
+                barChart.dataset = topTenWords;
+                barChart.resetCanvas();
             }
         });
     </script>

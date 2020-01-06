@@ -42,6 +42,7 @@ main {
 .topnav {
     overflow: hidden;
     background-color: var(--color-black);
+    width: 100%;
 }
 
 .topnav a {
@@ -215,6 +216,7 @@ input:checked + .slider:before {
 
     .view-switch {
         position: relative;
+        top: 1rem;
     }
 }
 
