@@ -12,101 +12,31 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html,
 body {
-    margin: 0;
+  height: 100%;
+  margin: 0;
     padding: 0;
 }
 
-h1 {
-    font-size: 2vw;
+html {
+    font-size: 16px;
 }
 
-h2,
-.btn,
-.header__link {
-    font-size: 1.6vw;
-}
-
-h3 {
-    font-size: 1.2vw;
-    font-weight: bold;
-}
-
-p,
-a,
-li,
-label,
-input,
-.accordion {
-    font-size: 1.2vw;
-}
-
-text {
-    font-size: 0.6vw;
-}
-
-@media (max-width: 1000px) {
-    h1 {
-        font-size: 5vw;
-    }
-    
-    h2,
-    .btn,
-    .header__link {
-        font-size: 2.6vw;
-    }
-    
-    h3 {
-        font-size: 1.8vw;
-        font-weight: bold;
-    }
-    
-    p,
-    a,
-    li,
-    label,
-    input,
-    .accordion {
-        font-size: 1.8vw;
-    }
-
-    text {
-        font-size: 0.9vw;
+@media (min-width: 900px) {
+    html {
+        font-size: 18px;
     }
 }
 
-@media (max-width: 800px) {
-    h1 {
-        font-size: 8vw;
+@media (min-width: 1200px) {
+    html {
+        font-size: 20px;
     }
-
-    h2,
-    .btn,
-    .header__link {
-        font-size: 6.4vw;
-    }
-
-    h3,
-    p,
-    a,
-    li,
-    label,
-    input,
-    .accordion {
-        font-size: 4.8vw;
-    }
-
-    text {
-        font-size: 2.4vw;
-    }
-}
-
-body {
-    margin: 0;
 }
 
 main {
-    padding: 0 1vw;
+    padding: 0 1rem;
 }
   
 .topnav {
@@ -115,12 +45,12 @@ main {
 }
 
 .topnav a {
-    float: left;
-    display: block;
+    padding: 1rem;
     color: var(--color-white);
     text-align: center;
-    padding: 1.4vw 1.6vw;
     text-decoration: none;
+    float: left;
+    display: block;
 }
 
 .topnav a:hover {
@@ -133,38 +63,53 @@ main {
     color: var(--color-white);
 }
 
-.topnav .menu-icon {
+.topnav a:not(:first-child) {
     display: none;
 }
 
-@media screen and (max-width: 800px) {
-    .topnav a:not(:first-child) {display: none;}
+.topnav a.menu-icon {
+    float: right;
+    display: block;
+}
+
+.topnav.responsive {
+    position: relative;
+}
+
+.topnav.responsive .menu-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+}
+
+@media (min-width: 900px) {
+    .topnav a:not(:first-child) {
+        display: block;
+    }
+
     .topnav a.menu-icon {
-        float: right;
-        display: block;
-    }
-
-    .topnav.responsive {position: relative;}
-    .topnav.responsive .menu-icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    .topnav.responsive a {
-        float: none;
-        display: block;
-        text-align: left;
+        display: none;
     }
 }
 
+button:focus {
+    outline: 0;
+}
+
 .btn {
-    margin: 0.4vw 0.2vw;
-    padding: 0.5vw 1.6vw;
+    margin: 0.4rem 0.2rem;
+    padding: 0.5rem 1rem;
     background-color: var(--color-main);
-    color: white;
+    color: var(--color-white);
+    font-size: 1.2rem;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 0.4rem;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -173,7 +118,7 @@ main {
 }
 
 .btn:hover {
-    box-shadow: 0 0.6vw 1vw 0 var(--color-shadow),0 1vw 5vw 0 var(--color-shadow);
+    box-shadow: 0 0.3rem 0.5rem 0 var(--color-shadow),0 0.5rem 2.5rem 0 var(--color-shadow);
 }
 
 .main-entry {
@@ -188,19 +133,21 @@ main {
 }
 
 input[type=text] {
-    margin: 0.4vw 0.2vw;
-    padding: 0.5vw 1.6vw;
+    margin: 0.2rem 0.1rem;
+    padding: 0.5rem 1.2rem;
+    outline: 0;
     width: 100%;
-    border-width: 0.1vw;
+    border-width: 0.1rem;
     border-color: var(--color-main);
-    border-radius: 0.5vw;
+    border-radius: 0.4rem;
+    font-size: 1rem;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 3vw;
-    height: 1.7vw;
+    width: 3rem;
+    height: 1.4rem;
 }
 
 .switch input { 
@@ -216,7 +163,7 @@ input[type=text] {
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 1.7vw;
+    border-radius: 1rem;
     background-color: var(--color-gray);
     transition: 0.4s;
 }
@@ -224,10 +171,10 @@ input[type=text] {
 .slider:before {
     position: absolute;
     content: "";
-    height: 1.3vw;
-    width: 1.3vw;
-    left: 0.2vw;
-    bottom: 0.2vw;
+    height: 1rem;
+    width: 1rem;
+    left: 0.2rem;
+    bottom: 0.2rem;
     border-radius: 50%;
     background-color: var(--color-white);
     transition: 0.4s;
@@ -238,11 +185,11 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 0.1vw var(--color-main);
+    box-shadow: 0 0 0.1rem var(--color-main);
 }
 
 input:checked + .slider:before {
-    transform: translateX(1.3vw);
+    transform: translateX(1.6rem);
 }
 
 .panel-results {
@@ -257,8 +204,8 @@ input:checked + .slider:before {
 
 .view-switch {
     position: absolute;
-    top: 5vw;
-    right: 2vw;
+    top: 4rem;
+    right: 1rem;
 }
 
 @media (max-width: 800px) {
@@ -276,6 +223,6 @@ input:checked + .slider:before {
 }
 
 .error {
-    border-bottom: 0.2vw solid var(--color-error);
-    border-radius: 0.2vw;
+    border-bottom: 0.2rem solid var(--color-error);
+    border-radius: 0.2rem;
 }

@@ -15,7 +15,7 @@
 }
 
 .accordion {
-    padding: 1vw 1vw 1vw 0;
+    padding: 0.8rem 1rem 0.8rem 0;
     width: 100%;
     background-color: var(--color-white);
     border: none;
@@ -28,7 +28,7 @@
     content: '\02795';
     color: var(--color-black);
     float: right;
-    margin-left: 0.5vw;
+    margin-left: 0.5rem;
 }
 
 .accordion-active, .accordion:hover {

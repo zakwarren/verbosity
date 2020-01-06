@@ -5,37 +5,37 @@
 .loader-animation {
     display: inline-block;
     position: relative;
-    width: 6vw;
-    height: 1.8vw;
+    width: 0.6rem;
+    height: 0.8rem;
 }
 
 .loader-animation div {
     position: absolute;
-    top: 1vw;
-    width: 0.6vw;
-    height: 0.6vw;
+    top: 0.5rem;
+    width: 0.3rem;
+    height: 0.3rem;
     border-radius: 50%;
     background: var(--color-black);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
 .loader-animation div:nth-child(1) {
-    left: 0.4vw;
+    left: 0.2rem;
     animation: loader-animation1 0.6s infinite;
 }
 
 .loader-animation div:nth-child(2) {
-    left: 0.4vw;
+    left: 0.2rem;
     animation: loader-animation2 0.6s infinite;
 }
 
 .loader-animation div:nth-child(3) {
-    left: 1.6vw;
+    left: 1rem;
     animation: loader-animation2 0.6s infinite;
 }
 
 .loader-animation div:nth-child(4) {
-    left: 2.8vw;
+    left: 1.7rem;
     animation: loader-animation3 0.6s infinite;
 }
 
@@ -62,6 +62,6 @@
         transform: translate(0, 0);
     }
     100% {
-        transform: translate(1.2vw, 0);
+        transform: translate(0.7rem, 0);
     }
 }
