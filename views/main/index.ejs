@@ -1,26 +1,67 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/loader.css">
+    <link rel="stylesheet" href="/css/chart.css">
 <%- include('../includes/start.ejs') %>
 
     <%- include('../includes/navigation.ejs') %>
     <main class="main-entry">
-        <section class="panel-center">
+        <section id="panelHome" class="panel-center">
             <h2 class="content-header">Enter your full URL to analyze the words on your website</h2>
-            <form id="formAnalysis" action="/analysis" method="POST">
-                <div class="form-entry">
-                    <input type="text" name="url" id="url">
-                </div>
-            </form>
-            <button id="btnLoad" class="btn">Analyze</button>
+            <div class="form-entry">
+                <input type="text" name="url" id="url">
+            </div>
+            <button id="btnAnalyze" class="btn">Analyze</button>
             <h2 id="loader" class="loader">Loading<div class="loader-animation"><div></div><div></div><div></div><div></div></div></h2>
         </section>
-        <% if (error) { %>
-            <section id="panelError" class="panel-center">
-                <h2 class="error">An error occurred! Please try another URL</h2>
-            </section>
-        <% } %>
+
+        <section id="panelError" class="panel-center">
+            <h2 id="errorMsg" class="error">An error occurred! Please try another URL</h2>
+        </section>
+
+        <section id="panelAnalysis" class="main-entry">
+            <button id="switchPanel" class="btn view-switch">View Blog</button>
+            <div id="panelData" class="panel-results">
+                <section class="panel-center">
+                    <h2>Analysis of <a id="urlAnalyzed" class="header__link" target="_blank" href=""></a></h2>
+                    <p>
+                        There are <span id="wordCount"></span> words on this website
+                        (excluding <a href="/about">stop words</a>).
+                    </p>
+                    <p>
+                        The most used word is "<span id="mostUsed"></span>" with
+                        <span id="usesFound"></span> uses found.
+                    </p>
+                    <p>
+                        Top 10 words
+                        <label class="switch">
+                            <input id="switchCheck" type="checkbox" name="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        Top 100 words
+                    </p>
+                </section>
+                <section class="panel-center" id="dashboardChart"></section>
+            </div>
+            <div id="panelBlog" class="panel-results">
+                <section class="panel-center">
+                    <h2>Computer Generated Blog</h2>
+                    <p>
+                        This blog is generated using <a href="/about">Markov Chains</a>,
+                        which have been trained using the words and phrases from
+                        <a id="urlAnalyzed2" target="_blank" href=""></a>
+                    </p>
+                </section>
+                <section class="blog" id="blog">
+                    <h3 id="blogHeader"></h3>
+                    <p id="blogBody"></p>
+                </section>
+            </div>
+        </section>
+
     </main>
 
-    <script src="/scripts/loader.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="/scripts/barchart.js"></script>
+    <script src="/scripts/analysis.js"></script>
 
 <%- include('../includes/end.ejs') %>

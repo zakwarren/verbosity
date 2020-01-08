@@ -119,7 +119,7 @@ button:focus {
 }
 
 .btn:hover {
-    box-shadow: 0 0.3rem 0.5rem 0 var(--color-shadow),0 0.5rem 2.5rem 0 var(--color-shadow);
+    box-shadow: 0 0.3rem 0.5rem 0 var(--color-shadow), 0 0.5rem 2.5rem 0 var(--color-shadow);
 }
 
 .main-entry {
@@ -194,12 +194,12 @@ input:checked + .slider:before {
 }
 
 .panel-results {
-    width: 60%;
+    width: 60vw;
 }
 
 @media (max-width: 1000px) {
     .panel-results {
-        width: 80%;
+        width: 80vw;
     }
 }
 

@@ -14,8 +14,7 @@ exports.getHome = (req, res, next) => {
         'main/index',
         {
             pageTitle: 'Verbosity',
-            path: '/',
-            error: false
+            path: '/'
         }
     );
 };
@@ -34,17 +33,18 @@ exports.getAbout = (req, res, next) => {
 exports.postAnalysis = (req, res, next) => {
     const url = req.body.url;
     const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const error = new Error('Validation failed');
+        error.statusCode = 422;
+        error.data = errors.array()[0].msg;
+        throw error;
+    }
 
     const handleErrors = (error, htmlCode) => {
         htmlCode = htmlCode || 500;
-        res.status(htmlCode).render(
-            'main/index',
-            {
-                pageTitle: 'Verbosity',
-                path: '/',
-                error: true
-            }
-        );
+        res.status(htmlCode).json({
+            message: 'Error'
+        });
     };
 
     const analyzeWords = (title, words, textCorpus) => {
@@ -54,18 +54,14 @@ exports.postAnalysis = (req, res, next) => {
 
             const blogObj = blogWriter.writeBlog(textCorpus, words, titleLength, blogLength);
 
-            res.render(
-                'main/analysis',
-                {
-                    pageTitle: 'Word Analysis',
-                    path: '/analysis',
-                    urlAnalyzed: url,
-                    siteTitle: analyze.title,
-                    analysis: analyze.analysis,
-                    generatedTitle: blogObj.blogTitle,
-                    generatedBlog: blogObj.blogContent
-                }
-            );
+            res.status(200).json({
+                message: 'Success',
+                urlAnalyzed: url,
+                siteTitle: analyze.title,
+                analysis: analyze.analysis,
+                generatedTitle: blogObj.blogTitle,
+                generatedBlog: blogObj.blogContent
+            });
         }
     };
 
