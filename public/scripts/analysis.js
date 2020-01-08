@@ -83,7 +83,7 @@ btnAnalyze.addEventListener('click', async () => {
         loader.style.display = 'none';
         panelError.style.display = 'block';
         errorMsg.textContent = data.data;
-    } else if (data.message === 'Error') {
+    } else {
         loader.style.display = 'none';
         panelError.style.display = 'block';
         errorMsg.textContent = 'An error occurred! Please try another URL';
